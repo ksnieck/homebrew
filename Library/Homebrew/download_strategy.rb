@@ -637,7 +637,10 @@ class BazaarDownloadStrategy < AbstractDownloadStrategy
     unless @clone.exist?
       url=@url.sub(%r[^bzr://], '')
       # 'lightweight' means history-less
-      safe_system bzrpath, 'checkout', '--lightweight', url, @clone
+      case @spec
+        when :revision then safe_system bzrpath, 'checkout', '--lightweight', url, '-r', revision, @clone
+        else safe_system bzrpath, 'checkout', '--lightweight', url, @clone
+      end
     else
       puts "Updating #{@clone}"
       Dir.chdir(@clone) { safe_system bzrpath, 'update' }

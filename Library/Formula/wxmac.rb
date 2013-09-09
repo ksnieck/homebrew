@@ -52,6 +52,10 @@ class Wxmac < Formula
     end
   end
 
+  def patches 
+      ["https://gist.github.com/ksnieck/6485295/raw/1e86d34875bd9d4f10da66ee3fe9383e9849c279/wxmac-native-overlay"]
+  end
+
   def install
     # need to set with-macosx-version-min to avoid configure defaulting to 10.5
     # need to enable universal binary build in order to build all x86_64 headers
